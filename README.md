@@ -6,9 +6,11 @@ Requires BepInEx 6 for IL2CPP, and BepInEx 5 for Mono.
 
 ✨ Powered by [UniverseLib](https://github.com/sinai-dev/UniverseLib)
 
+> This is a fork of BepInExConfigManager using [yukieiji's UniverseLib fork](https://github.com/yukieiji/UniverseLib) that I made for it to work in a game where I'm developing a plugin against BepInEx 6 pre-2 for Il2Cpp, might not work for your case.
+
 ## Releases [![](https://img.shields.io/github/release/sinai-dev/BepInExConfigManager.svg?label=release%20notes)](../../releases/latest)
 
-* [Download (IL2CPP)](https://github.com/sinai-dev/BepInExConfigManager/releases/latest/download/BepInExConfigManager.Il2Cpp.zip)
+* [Download (IL2CPP Interop)](https://github.com/Jelosus2/BepInExConfigManager/releases/latest/download/BepInExConfigManager.Il2Cpp.CoreCLR.zip)
 * [Download (Mono)](https://github.com/sinai-dev/BepInExConfigManager/releases/latest/download/BepInExConfigManager.Mono.zip)
 
 ## How to use

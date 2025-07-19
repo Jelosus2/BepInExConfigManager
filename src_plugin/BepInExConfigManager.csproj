@@ -32,6 +32,10 @@
         <AssemblyName>BepInExConfigManager.Mono</AssemblyName>
     </PropertyGroup>
 
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+        <Exec Condition="'$(Configuration)'=='Release_IL2CPP_CoreCLR' or '$(Configuration)'=='Release_IL2CPP'" Command="dotnet build ..\UniverseLib\src\UniverseLib.sln -c Release_IL2CPP_Interop_BIE" />
+    </Target>
+
     <!-- NUGET -->
     <ItemGroup>
         <PackageReference Include="HarmonyX" Version="2.5.2" IncludeAssets="Compile" />
@@ -42,15 +46,21 @@
     </ItemGroup>
     <!-- il2cpp Interop nuget -->
     <ItemGroup Condition="'$(Configuration)'=='Release_IL2CPP_CoreCLR'">
-        <PackageReference Include="Il2CppInterop.Common" Version="1.4.5" IncludeAssets="Compile" />
-        <PackageReference Include="Il2CppInterop.Runtime" Version="1.4.5" IncludeAssets="Compile" />
-        <PackageReference Include="UniverseLib.IL2CPP.Interop" Version="1.5.1" />
+        <PackageReference Include="Il2CppInterop.Common" Version="1.0.0" IncludeAssets="Compile" />
+        <PackageReference Include="Il2CppInterop.Runtime" Version="1.0.0" IncludeAssets="Compile" />
+        <Reference Include="UniverseLib">
+            <HintPath>..\UniverseLib\Release\UniverseLib.Il2Cpp.Interop\UniverseLib.BIE.IL2CPP.Interop.dll</HintPath>
+            <Private>True</Private>
+        </Reference>
     </ItemGroup>
 
     <ItemGroup Condition="'$(Configuration)'=='Release_IL2CPP'">
-        <PackageReference Include="Il2CppInterop.Common" Version="1.4.5" IncludeAssets="Compile" />
-        <PackageReference Include="Il2CppInterop.Runtime" Version="1.4.5" IncludeAssets="Compile" />
-        <PackageReference Include="UniverseLib.IL2CPP.Interop" Version="1.5.1" />
+        <PackageReference Include="Il2CppInterop.Common" Version="1.0.0" IncludeAssets="Compile" />
+        <PackageReference Include="Il2CppInterop.Runtime" Version="1.0.0" IncludeAssets="Compile" />
+        <Reference Include="UniverseLib">
+            <HintPath>..\UniverseLib\Release\UniverseLib.Il2Cpp.Interop\UniverseLib.BIE.IL2CPP.Interop.dll</HintPath>
+            <Private>True</Private>
+        </Reference>
     </ItemGroup>
 
     <!-- ASSEMBLY REFS -->
@@ -115,6 +125,10 @@
             <HintPath>..\lib\interop\UnityEngine.IMGUIModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
+        <Reference Include="UnityEngine.PhysicsModule">
+            <HintPath>..\lib\interop\UnityEngine.PhysicsModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
     </ItemGroup>
     <!-- il2cpp interop -->
     <ItemGroup Condition="'$(Configuration)' == 'Release_IL2CPP_CoreCLR'">
@@ -154,10 +168,10 @@
             <HintPath>..\lib\interop\UnityEngine.IMGUIModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
-    </ItemGroup>
-    <!-- ANALYZERS -->
-    <ItemGroup>
-        <Analyzer Include="..\packages\UniverseLib.Analyzers.1.0.4\analyzers\dotnet\cs\UniverseLib.Analyzers.dll" />
+        <Reference Include="UnityEngine.PhysicsModule">
+            <HintPath>..\lib\interop\UnityEngine.PhysicsModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
     </ItemGroup>
     <!-- PROJECT REFERENCES -->
     <ItemGroup>
@@ -175,6 +189,7 @@
         <Delete Files="$(TargetDir)/../patchers/BepInExConfigManager.Il2Cpp.Patcher.deps.json" />
         <Delete Files="$(TargetDir)/../patchers/BepInExConfigManager.Il2Cpp.Patcher.dll.config" />
         <Delete Files="$(TargetDir)/../patchers/BepInExConfigManager.Il2Cpp.Patcher.pdb" />
+        <Delete Files="$(TargetDir)UniverseLib.BIE.IL2CPP.Interop.xml" />
     </Target>
     <Target Name="DeleteFileIl2Cpp" AfterTargets="Build" Condition="'$(Configuration)' == 'Release_IL2CPP'">
         <Delete Files="$(TargetDir)BepInExConfigManager.Il2Cpp.Patcher.dll" />
@@ -185,6 +200,7 @@
         <Delete Files="$(TargetDir)/../patchers/BepInExConfigManager.Il2Cpp.Patcher.deps.json" />
         <Delete Files="$(TargetDir)/../patchers/BepInExConfigManager.Il2Cpp.Patcher.dll.config" />
         <Delete Files="$(TargetDir)/../patchers/BepInExConfigManager.Il2Cpp.Patcher.pdb" />
+        <Delete Files="$(TargetDir)UniverseLib.BIE.IL2CPP.Interop.xml" />
     </Target>
     <Target Name="DeleteFileMono" AfterTargets="Build" Condition="'$(Configuration)' == 'Release_Mono'">
         <Delete Files="$(TargetDir)BepInExConfigManager.Mono.Patcher.dll" />
